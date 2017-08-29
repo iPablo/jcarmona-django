@@ -1,8 +1,8 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-# Create your views here.
+from django.urls import translate_url
+from django.conf.urls import url
+from . import views
 
-#from . models import notice
-
-def index(request)
-    return HttpResponse("Hello, your are in the index notices")
+urlpatterns = [
+    #patron pagina de inicio
+    url(r'^$', views.index, name='index')
+]
