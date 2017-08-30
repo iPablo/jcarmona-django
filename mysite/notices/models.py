@@ -11,9 +11,9 @@ class Base(models.Model):
     class Meta:
         abstract = False
 
+
 class BaseNew(Base):
     description = models.CharField(max_length=200)
-
 
 
 class Notice(BaseNew):

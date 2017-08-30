@@ -1,0 +1,9 @@
+{% if latest_notice_list %}
+    <ul>
+    {% for notice in latest_notice_list %}
+        <li><a href="/notices/{{ notice.id }}/">{{ notice.notice_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No notices are available.</p>
+{% endif %}
