@@ -7,9 +7,6 @@ from django.utils import timezone
 class Base(models.Model):
     title = models.CharField(max_length=30)
 
-    def __str__(self):
-        return self.title
-
     # abstract True no levanta el servidor
     class Meta:
         abstract = False
@@ -25,10 +22,12 @@ class Notice(BaseNew):
     def __str__(self):
         return self.title
 
+
 class Event(BaseNew):
     start_date = models.DateField()
     end_date = models.DateField()
 
-
+    def __str__(self):
+        return self.title
     #class Meta:
      #   ordering = ['title']
