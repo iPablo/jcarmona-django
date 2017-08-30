@@ -17,6 +17,9 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
+    #defult url notices and events
+    url(r'^', include('notices.urls')),
     url(r'^notices/', include('notices.urls')),
+    #url(r'^events/', include('events.urls')),
     url(r'^admin/', admin.site.urls),
 ]
