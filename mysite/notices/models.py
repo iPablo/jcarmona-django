@@ -5,20 +5,30 @@ from django.utils import timezone
 # Create your models here.
 
 class Base(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.title
+
+    # abstract True no levanta el servidor
     class Meta:
-        abstract = True
+        abstract = False
 
 class BaseNew(Base):
     description = models.CharField(max_length=200)
 
-class NewsItem(BaseNew):
+
+
+class Notice(BaseNew):
     publish_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.title
 
 class Event(BaseNew):
     start_date = models.DateField()
     end_date = models.DateField()
 
-    class Meta:
-        ordering = ['title']
+
+    #class Meta:
+     #   ordering = ['title']
