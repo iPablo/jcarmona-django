@@ -7,7 +7,7 @@ from django.utils import timezone
 class Base(models.Model):
     title = models.CharField(max_length=30)
 
-    # abstract True no levanta el servidor
+    """abstract to false"""
     class Meta:
         abstract = False
 
@@ -29,5 +29,3 @@ class Event(BaseNew):
 
     def __str__(self):
         return self.title
-    #class Meta:
-     #   ordering = ['title']
