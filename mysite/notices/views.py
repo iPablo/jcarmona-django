@@ -37,10 +37,6 @@ def notice_detail(request, pk):
                   template_name='notices/notice_detail.html',
                   context=context)
 
-#def notice_detail(request, pk):
-#    notice = get_object_or_404(Notice, pk=pk)
-#    return render(request, 'notices/notice_detail.html', {'notice': notice})
-
 def event_detail(request, pk):
     event = Event.objects.get(pk=pk)
     context = {'event': event}
@@ -62,15 +58,6 @@ def notice_new(request):
     return render(request, 'notices/notice_edit.html', {'form': form})
 
 
-#def notice_edit(request, pk):
-#     notice = Notice.objects.get(pk=pk)
-#     if request.method == "POST":
-#         context = {'notice': notice}
-#         return render(request=request,
-#                       template_name='notices/notice_detail.html',
-#                       context=context)
-
-
 def notice_edit(request, pk):
     notice = get_object_or_404(Notice, pk=pk)
     if request.method == "POST":
@@ -79,7 +66,7 @@ def notice_edit(request, pk):
             notice = form.save(commit=False)
             #notice.author = request.user
             notice.save()
-            return redirect('notices.views.notice_detail', pk=notice.pk)
+            return redirect('/', pk=notice.pk)
     else:
         form = PostForm(instance=notice)
     return render(request, 'notices/notice_edit.html', {'form': form})
