@@ -1,0 +1,31 @@
+{% load static %}
+<html>
+
+<head>
+    <div class="page-header">
+        <h3>Notices and events</h3>
+    </div>
+</head>
+
+<body>
+    <form>
+        <button><a href="{% url 'notices' %}">Notices</a></button>
+        <button><a href="{% url 'events' %}">Events</a></button>
+        <button><a href="{% url 'index' %}">All</a></button>
+    </form>
+
+         <h3>Events</h3>
+            {% if latest_event_list %}
+                <ul>
+                {% for event in latest_event_list %}
+                    <p><li><a href="/event/{{ event.id }}/">{{ event.title }}</a></li>
+                    <a href="/event/{{ event.id }}/">{{ event.description | truncatechars:60 }}</a></p>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No events are available.</p>
+            {% endif %}
+
+</body>
+
+</html>
