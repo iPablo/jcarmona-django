@@ -12,7 +12,6 @@ def index(request):
     context = {'latest_notice_list': latest_notice_list,
                'latest_event_list': latest_event_list,
                }
-
     return render(request, 'notices/index.html', context)
 
 def notices(request):
@@ -41,6 +40,5 @@ def event_detail(request, pk):
     return render(request=request,
                   template_name='notices/event_detail.html',
                   context=context)
-
 
 
