@@ -19,6 +19,5 @@ from django.contrib import admin
 """r'^', <-- default webpage"""
 urlpatterns = [
     url(r'^', include('notices.urls')),
-    url(r'^notices/', include('notices.urls')),
     url(r'^admin/', admin.site.urls),
 ]

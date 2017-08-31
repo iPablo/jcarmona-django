@@ -14,18 +14,6 @@
         <button><a href="{% url 'index' %}">All</a></button>
     </form>
 
-         <h3>Notices</h3>
-            {% if latest_notice_list %}
-                <ul>
-                {% for notice in latest_notice_list %}
-                    <p><li><a href="/notices/{{ notice.id }}/">{{ notice.title }}</a></li>
-                    <a href="/notices/{{ notice.id }}/">{{ notice.description | truncatechars:60 }}</a></p>
-                {% endfor %}
-                </ul>
-            {% else %}
-                <p>No notices are available.</p>
-            {% endif %}
-
          <h3>Events</h3>
             {% if latest_event_list %}
                 <ul>
@@ -37,7 +25,6 @@
             {% else %}
                 <p>No events are available.</p>
             {% endif %}
-
 
 </body>
 
