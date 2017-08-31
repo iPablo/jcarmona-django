@@ -28,7 +28,19 @@ def events(request):
     return render(request, 'notices/events.html', context)
 
 
+def notice_detail(request, pk):
+    notice = Notice.objects.get(pk=pk)
+    context = {'notice': notice}
+    return render(request=request,
+                  template_name='notices/notice_detail.html',
+                  context=context)
 
+def event_detail(request, pk):
+    event = Event.objects.get(pk=pk)
+    context = {'event': event}
+    return render(request=request,
+                  template_name='notices/event_detail.html',
+                  context=context)
 
 
 
