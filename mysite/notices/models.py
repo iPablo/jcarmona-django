@@ -13,8 +13,8 @@ class Base(models.Model):
 
 
 class BaseNew(Base):
-    description = models.CharField(max_length=200)
-
+    #description = models.CharField(max_length=200)
+    description = models.TextField()
 
 class Notice(BaseNew):
     publish_date = models.DateTimeField(default=timezone.now)

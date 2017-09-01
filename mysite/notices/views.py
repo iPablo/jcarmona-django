@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
+from django.shortcuts import redirect
+from django.utils import timezone
 # Create your views here.
 
 from . models import Notice, Event
+from . forms import PostForm
 
 """Order notices by title and render on /notices/"""
 def index(request):
@@ -12,7 +15,6 @@ def index(request):
     context = {'latest_notice_list': latest_notice_list,
                'latest_event_list': latest_event_list,
                }
-
     return render(request, 'notices/index.html', context)
 
 def notices(request):
@@ -42,5 +44,29 @@ def event_detail(request, pk):
                   template_name='notices/event_detail.html',
                   context=context)
 
+def notice_new(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            notice = form.save(commit=False)
+            #notice.author = request.user
+            notice.published_date = timezone.now()
+            notice.save()
+            return redirect('/', pk=notice.pk)
+    else:
+        form = PostForm()
+    return render(request, 'notices/notice_edit.html', {'form': form})
 
 
+def notice_edit(request, pk):
+    notice = get_object_or_404(Notice, pk=pk)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=notice)
+        if form.is_valid():
+            notice = form.save(commit=False)
+            #notice.author = request.user
+            notice.save()
+            return redirect('/', pk=notice.pk)
+    else:
+        form = PostForm(instance=notice)
+    return render(request, 'notices/notice_edit.html', {'form': form})
