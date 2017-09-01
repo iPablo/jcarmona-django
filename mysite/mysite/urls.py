@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-"""r'^', <-- default webpage"""
+#reminder: r'^$', <-- url to root default webpage
+
 urlpatterns = [
+    #include the urls of url notices
     url(r'^', include('notices.urls')),
     url(r'^admin/', admin.site.urls),
 ]

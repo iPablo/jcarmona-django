@@ -8,8 +8,8 @@ from django.utils import timezone
 from . models import Notice, Event
 from . forms import PostForm
 
-"""Order notices by title and render on /notices/"""
 def index(request):
+    """Order notices by title and render on /notices/"""
     latest_notice_list = Notice.objects.order_by('-title')
     latest_event_list = Event.objects.order_by('-title')
     context = {'latest_notice_list': latest_notice_list,
@@ -18,12 +18,14 @@ def index(request):
     return render(request, 'notices/index.html', context)
 
 def notices(request):
+    """Order only notices by title"""
     latest_notice_list = Notice.objects.order_by('-title')
     context = {'latest_notice_list': latest_notice_list,}
 
     return render(request, 'notices/notices.html', context)
 
 def events(request):
+    """Order only events by title"""
     latest_event_list = Event.objects.order_by('-title')
     context = {'latest_event_list': latest_event_list,}
 
@@ -31,6 +33,7 @@ def events(request):
 
 
 def notice_detail(request, pk):
+    """get key and show details of a notice"""
     notice = Notice.objects.get(pk=pk)
     context = {'notice': notice}
     return render(request=request,
@@ -38,6 +41,7 @@ def notice_detail(request, pk):
                   context=context)
 
 def event_detail(request, pk):
+    """get key and show details of a event"""
     event = Event.objects.get(pk=pk)
     context = {'event': event}
     return render(request=request,
@@ -45,6 +49,7 @@ def event_detail(request, pk):
                   context=context)
 
 def notice_new(request):
+    """post with current date the new notice"""
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -59,6 +64,7 @@ def notice_new(request):
 
 
 def notice_edit(request, pk):
+    """edit the notice"""
     notice = get_object_or_404(Notice, pk=pk)
     if request.method == "POST":
         form = PostForm(request.POST, instance=notice)
@@ -73,6 +79,7 @@ def notice_edit(request, pk):
 
 
 def notice_delete(request, pk):
+    """delete the notice"""
     notice = get_object_or_404(Notice, pk=pk)
     notice.delete()
     return redirect('/', pk=notice.pk)
