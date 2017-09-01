@@ -70,3 +70,9 @@ def notice_edit(request, pk):
     else:
         form = PostForm(instance=notice)
     return render(request, 'notices/notice_edit.html', {'form': form})
+
+
+def notice_delete(request, pk):
+    notice = get_object_or_404(Notice, pk=pk)
+    notice.delete()
+    return redirect('/', pk=notice.pk)

@@ -4,5 +4,6 @@
 		<h1>{{ notice.title }}</h1>
 		<p>{{ notice.description }}</p>
      <button><a href="{% url 'notice_edit' pk=notice.pk %}">Edit notice</a></button>
+	 <button><a href="{% url 'notice_delete' pk=notice.pk %}">Delete notice</a></button>
 	</div>
 {% endblock %}

@@ -14,4 +14,6 @@ urlpatterns = [
 
     url(r'^notices/new/$', views.notice_new, name='notice_new'),
     url(r'^notices/(?P<pk>[0-9]+)/edit/$', views.notice_edit, name='notice_edit'),
+    url(r'^notices/(?P<pk>\d+)/delete/$', views.notice_delete, name='notice_delete'),
+
 ]
