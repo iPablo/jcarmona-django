@@ -9,6 +9,7 @@
 
 <body>
     <form>
+        <!-- Buttons to redirect notices, events, etc... repeat other page-->
         <button><a href="{% url 'notices' %}">Notices</a></button>
         <button><a href="{% url 'events' %}">Events</a></button>
         <button><a href="{% url 'index' %}">All</a></button>
@@ -17,6 +18,7 @@
          <h3>Events</h3>
             {% if latest_event_list %}
                 <ul>
+                    <!-- loop that collects all events, truncatechars limit show text to 60 characters-->
                 {% for event in latest_event_list %}
                     <p><li><a href="/event/{{ event.id }}/">{{ event.title }}</a></li>
                     <a href="/event/{{ event.id }}/">{{ event.description | truncatechars:60 }}</a></p>

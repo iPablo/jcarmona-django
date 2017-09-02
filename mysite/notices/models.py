@@ -10,7 +10,7 @@ class Base(models.Model):
 
 
 class BaseNew(Base):
-    description = models.TextField()
+    description = models.TextField(max_length=500)
 
 
 class Notice(BaseNew):
