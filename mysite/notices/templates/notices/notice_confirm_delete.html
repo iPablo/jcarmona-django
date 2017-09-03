@@ -1,8 +1,8 @@
 {% block content %}
-    <h1>Notice</h1>
+    <p>Are you sure you want to delete "{{ object }}"?</p>
     <form method="POST" class="post-form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save</button>
+        <input type="submit" value="Confirm" />
     </form>
 {% endblock %}

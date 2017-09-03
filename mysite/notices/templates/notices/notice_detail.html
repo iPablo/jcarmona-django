@@ -6,6 +6,9 @@
 
 	 <!-- buttons notice edit and delete collects pk, id notice-->
      <button><a href="{% url 'notice_edit' pk=notice.pk %}">Edit notice</a></button>
+	 <button><a href="{% url 'notice_edit_v2' pk=notice.pk %}">Edit notice from view</a></button>
 	 <button><a href="{% url 'notice_delete' pk=notice.pk %}">Delete notice</a></button>
+	 <button><a href="{% url 'notice_delete_v2' pk=notice.pk %}">Delete notice from view</a></button>
+
 	</div>
 {% endblock %}

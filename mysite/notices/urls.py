@@ -5,7 +5,7 @@ from . import views
 
 
 urlpatterns = [
-
+    #urls basadas en funciones
     #default page index
     url(r'^$', views.index, name='index'),
 
@@ -30,4 +30,12 @@ urlpatterns = [
     #url when delete your notice
     url(r'^notices/(?P<pk>\d+)/delete/$', views.notice_delete, name='notice_delete'),
 
+    #urls basadas en vistas, crear noticia
+    url(r'^notices_v2/new/$', views.Notice_new_v2.as_view(), name='notice_new_v2'),
+
+    #url basada en vistas, editar noticia
+    url(r'^notices_v2/(?P<pk>[0-9]+)/edit/$', views.Notice_edit_v2.as_view(), name='notice_edit_v2'),
+
+    #url basada en vistas, eliminar noticia
+    url(r'^notices_v2/(?P<pk>\d+)/delete/$', views.Notice_delete_v2.as_view(), name='notice_delete_v2'),
 ]

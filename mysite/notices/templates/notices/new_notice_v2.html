@@ -1,8 +1,10 @@
 {% block content %}
-    <h1>Notice</h1>
+    <h1>New Notice based from views</h1>
     <form method="POST" class="post-form">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save</button>
     </form>
 {% endblock %}
+
+

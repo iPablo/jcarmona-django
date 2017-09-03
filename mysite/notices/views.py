@@ -1,8 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.shortcuts import redirect
 from django.utils import timezone
+
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
 # Create your views here.
 
 from . models import Notice, Event
@@ -58,6 +62,7 @@ def notice_new(request):
             notice.published_date = timezone.now()
             notice.save()
             return redirect('/', pk=notice.pk)
+
     else:
         form = PostForm()
     return render(request, 'notices/notice_edit.html', {'form': form})
@@ -83,3 +88,35 @@ def notice_delete(request, pk):
     notice = get_object_or_404(Notice, pk=pk)
     notice.delete()
     return redirect('/', pk=notice.pk)
+
+# visto con surber
+class Notice_new_v2(CreateView):
+    """notice created based view"""
+    model = Notice
+    fields = ['title', 'description']
+    #form_class = PostForm2
+    template_name = 'notices/new_notice_v2.html'
+
+    #def get_success_url(self):
+    #    return reverse('notice_detail', args=(self.object.id,))
+
+    def get_success_url(self):
+        return reverse(index)
+
+class Notice_edit_v2(UpdateView):
+    """notice edit based view"""
+    model = Notice
+    fields = ['title', 'description']
+    template_name = 'notices/notice_edit_v2.html'
+
+    def get_success_url(self):
+        return reverse('notice_detail', args=(self.object.id,))
+
+
+class Notice_delete_v2(DeleteView):
+    """notice delete based view"""
+    model = Notice
+    #fields = ['title', 'description']
+    success_url = reverse_lazy(index)
+
+
