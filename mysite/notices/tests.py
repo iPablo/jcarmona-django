@@ -3,10 +3,10 @@ from django.test import TestCase
 # Create your tests here.
 import datetime
 from django.utils import timezone
-from django.test import TestCase
-from .models import Notice, Event
-from django.test import Client
+from django.test import TestCase, Client
+from django.urls import reverse
 
+from .models import Notice, Event
 
 #biblia de pasos
 #1º Listo las noticias que tengo
@@ -51,31 +51,67 @@ class NoticeNewTestCase(TestCase):
     #una funcion por cada caso, leer, crear, borrar, editar tanto para noticas como eventos
     def test_notice_new(self):
         c = Client()
+        #cuenta cuantas noticias hay, no debe de haber ninguna
         notices_before = Notice.objects.order_by('-title').count()
-        response = c.get('/notices/new/')
+        #comprueba que existe y funciona la url notice_new, con reverse la rescata de urls.py
+        response = c.get(reverse('notice_new'))
         self.assertEqual(response.status_code, 200)
-        response = c.post('/notices/new/', {'title': 'prueba_test', 'description': 'descripcion_test'})
+        #crea una noticia con titulo y descripcion
+        response = c.post(reverse('notice_new'), {'title': 'prueba_test', 'description': 'descripcion_test'})
+        #comprueba que haya una redirección al crear la noticia
         self.assertEqual(response.status_code, 302)
+        #vuelve a contar cuantas noticias hay
         notices_after = Notice.objects.order_by('-title').count()
+        #compara que tiene que haber una noticia mas
         self.assertEqual(notices_after, notices_before+1)
 
 
 
 
 #test para la funcion notice_edit
+#es parecido a noticenewtestcase y noticedeltestcase
+#tengo que crear una noticia, capturar los datos y modificarla, despues comparar que titulo, descripcion no sean iguales
+class NoticeEditTestCase(TestCase):
+    def test_notice_edit(self):
+        c = Client()
+        #creo una noticia
+        c.post(reverse('notice_new'), {'title': 'primera_noticia', 'description': 'primera_descripcion'})
+
+        import ipdb;
+        ipdb.set_trace()
+
+        #identifico el titulo y lo guardo
+        titulo = Notice.objects.get(title='prueba_borrado')
+
+
+
+        #edito el titlo que obtuve
+        c.post(reverse('notice_edit',{'title': 'primera_noticia', 'description': 'primera_descripcion'}, kwargs={'pk': titulo.pk}))
+
+
+        #c.post(reverse('notice_edit'), {'title': 'primera_noticia_modificada', 'description': 'primera_descripcion'})
+        #titulo_modificado = Notice.objects.filter(obtener pk de la anterior noticia modificada)
+
+
+
+        #comparar los titulos, si la noticia ha sido modificada, OK
+        self.assertEqual(titulo, titulo_modificado)
 
 #test para la funcion notice_delete
 class NoticeDelTestCase(TestCase):
-    #una funcion por cada caso, leer, crear, borrar, editar tanto para noticas como eventos
+    # elimina la noticia creada realiza una comprobacion
     def test_notice_del(self):
         c = Client()
-        notice_created = c.post('/notices/new/', {'title': 'prueba_borrado', 'description': 'descripcion_borrada'})
-        notices_before = Notice.objects.order_by('-title').count()
+        #crea una noticia con titulo y descripcion
+        c.post(reverse('notice_new'), {'title': 'prueba_borrado', 'description': 'descripcion_borrada'})
+        #guarda el numero de noticias
+        notices_before = Notice.objects.all().count()
         print(notices_before)
-
-
-
-        notices_after = Notice.objects.order_by('-title').count()
+        #borra la noticia creada
+        notice = Notice.objects.get(title='prueba_borrado')
+        c.delete(reverse('notice_delete', kwargs={'pk': notice.pk}))
+        #vuelve a contar cuantas noticias hay
+        notices_after = Notice.objects.all().count()
         print(notices_after)
-        self.assertEqual(notices_before, notices_after-1)
-    #no consigo borrar la noticia creada para poder comprobar que se borra
+        #compara que sea distinto las noticias, tiene que haber una menos
+        self.assertNotEqual(notices_before, notices_after)
