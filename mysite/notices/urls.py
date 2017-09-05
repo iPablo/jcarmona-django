@@ -38,4 +38,13 @@ urlpatterns = [
 
     #url basada en vistas, eliminar noticia
     url(r'^notices_v2/(?P<pk>\d+)/delete/$', views.Notice_delete_v2.as_view(), name='notice_delete_v2'),
+
+    #urls basadas en vistas, crear evento
+    url(r'^events_v2/new/$', views.Event_new_v2.as_view(), name='event_new_v2'),
+
+    #url basada en vistas, editar evento
+    url(r'^events_v2/(?P<pk>[0-9]+)/edit/$', views.Event_edit_v2.as_view(), name='event_edit_v2'),
+
+#url basada en vistas, eliminar evento
+    url(r'^events_v2/(?P<pk>\d+)/delete/$', views.Event_delete_v2.as_view(), name='event_delete_v2'),
 ]

@@ -2,7 +2,12 @@
 <div class="event">
 	<!-- page with event title start date and end date-->
 	<h1>{{ event.title }}</h1>
+	<p>{{ event.description }}</p>
 	<p>{{ event.start_date|linebreaksbr }}</p>
 	<p>{{ event.end_date|linebreaksbr }}</p>
+
+	<button><a href="{% url 'event_edit_v2' pk=event.pk %}">Edit event from view</a></button>
+	<button><a href="{% url 'event_delete_v2' pk=event.pk %}">Delete event from view</a></button>
+
 </div>
 {% endblock %}

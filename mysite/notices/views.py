@@ -10,7 +10,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # Create your views here.
 
 from . models import Notice, Event
-from . forms import PostForm
+from . forms import PostForm, PostForm_event
 
 def index(request):
     """Order notices by title and render on /notices/"""
@@ -89,7 +89,6 @@ def notice_delete(request, pk):
     notice.delete()
     return redirect('/', pk=notice.pk)
 
-# visto con surber
 class Notice_new_v2(CreateView):
     """notice created based view"""
     model = Notice
@@ -119,4 +118,36 @@ class Notice_delete_v2(DeleteView):
     #fields = ['title', 'description']
     success_url = reverse_lazy(index)
 
+
+class Event_new_v2(CreateView):
+    """events created based view"""
+    #model = Event
+    #fields = ['title', 'description', 'start_date', 'end_date']
+    form_class = PostForm_event
+
+    template_name = 'notices/new_event_v2.html'
+
+    def get_success_url(self):
+        return reverse(index)
+
+
+class Event_edit_v2(UpdateView):
+    """event edit based view"""
+    form_class = PostForm_event
+    #model = Event
+    #fields = ['title', 'description', 'start_date', 'end_date']
+    template_name = 'notices/event_edit_v2.html'
+    def get_queryset(self):
+        return Event.objects.all()
+
+    def get_success_url(self):
+        return reverse('event_detail', args=(self.object.id,))
+
+class Event_delete_v2(DeleteView):
+    """Event delete based view"""
+    form_class = PostForm_event
+    success_url = reverse_lazy(index)
+
+    def get_queryset(self):
+        return Event.objects.all()
 

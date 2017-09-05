@@ -1,5 +1,5 @@
 from django import forms
-from .models import Notice
+from .models import Notice, Event
 
 
 class PostForm(forms.ModelForm):
@@ -8,7 +8,6 @@ class PostForm(forms.ModelForm):
 		model = Notice
 		fields = ('title', 'description',)
 
-# visto con surber
 #class PostForm2(forms.ModelForm):
 #	class Meta:
 #		model = Notice
@@ -17,5 +16,15 @@ class PostForm(forms.ModelForm):
 #		widgets = {
 #			'description': forms.TextInput(),
 #		}
+
+class PostForm_event(forms.ModelForm):
+	class Meta:
+		model = Event
+		fields = ('title', 'description', 'start_date', 'end_date')
+		widgets = {
+			'description': forms.Textarea(),
+
+		}
+
 
 

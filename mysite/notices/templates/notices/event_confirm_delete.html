@@ -1,0 +1,8 @@
+{% block content %}
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Confirm" />
+    </form>
+{% endblock %}
