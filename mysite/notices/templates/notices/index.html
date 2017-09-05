@@ -1,3 +1,4 @@
+{% extends 'notices/base.html' %}
 {% load static %}
 <html>
 
@@ -8,17 +9,10 @@
 </head>
 
 <body>
-    <form>
-        <!-- Buttons to redirect notices, events, etc...-->
-        <button><a href="{% url 'notices' %}">Notices</a></button>
-        <button><a href="{% url 'events' %}">Events</a></button>
-        <button><a href="{% url 'index' %}">All</a></button>
-        <button><a href="{% url 'notice_new' %}">Create notice</a></button>
-        <button><a href="{% url 'notice_new_v2' %}">Create notice from view</a></button>
-        <button><a href="{% url 'event_new_v2' %}">Create event from view</a></button>
-    </form>
+
 
          <h3>Notices</h3>
+        {% block content %}
             {% if latest_notice_list %}
                 <ul>
                     <!-- loop that collect the notices created-->
@@ -43,7 +37,7 @@
             {% else %}
                 <p>No events are available.</p>
             {% endif %}
-
+         {% endblock content %}
 
 </body>
 

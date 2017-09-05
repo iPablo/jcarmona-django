@@ -1,3 +1,4 @@
+{% extends 'notices/base.html' %}
 {% load static %}
 <html>
 
@@ -15,6 +16,7 @@
         <button><a href="{% url 'index' %}">All</a></button>
     </form>
 
+    {% block content %}
          <h3>Events</h3>
             {% if latest_event_list %}
                 <ul>
@@ -27,6 +29,7 @@
             {% else %}
                 <p>No events are available.</p>
             {% endif %}
+    {% endblock %}
 
 </body>
 

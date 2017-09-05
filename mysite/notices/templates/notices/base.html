@@ -1,0 +1,29 @@
+{% load staticfiles %}
+<html>
+        <head>
+                <div class="page-header">
+                    <h2><a href="/">Notices and Events</h2></a>
+                </div>
+        </head>
+
+	<body>
+
+      <form>
+            <!-- Buttons to redirect notices, events, etc...-->
+            <button><a href="{% url 'notices' %}">Notices</a></button>
+            <button><a href="{% url 'events' %}">Events</a></button>
+            <button><a href="{% url 'index' %}">All</a></button>
+            <button><a href="{% url 'notice_new' %}">Create notice</a></button>
+            <button><a href="{% url 'notice_new_v2' %}">Create notice from view</a></button>
+            <button><a href="{% url 'event_new_v2' %}">Create event from view</a></button>
+        </form>
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                {% block content %}
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
