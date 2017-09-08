@@ -1,5 +1,6 @@
 from django.urls import translate_url
 from django.conf.urls import url
+from django.contrib.auth.decorators import login_required
 
 from . import views
 
@@ -31,20 +32,24 @@ urlpatterns = [
     url(r'^notices/(?P<pk>\d+)/delete/$', views.notice_delete, name='notice_delete'),
 
     #urls basadas en vistas, crear noticia
-    url(r'^notices_v2/new/$', views.Notice_new_v2.as_view(), name='notice_new_v2'),
+    url(r'^notices_v2/new/$', login_required(views.Notice_new_v2.as_view()), name='notice_new_v2'),
 
     #url basada en vistas, editar noticia
-    url(r'^notices_v2/(?P<pk>[0-9]+)/edit/$', views.Notice_edit_v2.as_view(), name='notice_edit_v2'),
+    url(r'^notices_v2/(?P<pk>[0-9]+)/edit/$', login_required(views.Notice_edit_v2.as_view()), name='notice_edit_v2'),
 
     #url basada en vistas, eliminar noticia
-    url(r'^notices_v2/(?P<pk>\d+)/delete/$', views.Notice_delete_v2.as_view(), name='notice_delete_v2'),
+    url(r'^notices_v2/(?P<pk>\d+)/delete/$', login_required(views.Notice_delete_v2.as_view()), name='notice_delete_v2'),
 
     #urls basadas en vistas, crear evento
-    url(r'^events_v2/new/$', views.Event_new_v2.as_view(), name='event_new_v2'),
+    url(r'^events_v2/new/$', login_required(views.Event_new_v2.as_view()), name='event_new_v2'),
 
     #url basada en vistas, editar evento
-    url(r'^events_v2/(?P<pk>[0-9]+)/edit/$', views.Event_edit_v2.as_view(), name='event_edit_v2'),
+    url(r'^events_v2/(?P<pk>[0-9]+)/edit/$', login_required(views.Event_edit_v2.as_view()), name='event_edit_v2'),
 
-#url basada en vistas, eliminar evento
-    url(r'^events_v2/(?P<pk>\d+)/delete/$', views.Event_delete_v2.as_view(), name='event_delete_v2'),
+    #url basada en vistas, eliminar evento
+    url(r'^events_v2/(?P<pk>\d+)/delete/$', login_required(views.Event_delete_v2.as_view()), name='event_delete_v2'),
+
+    #url para acceder a la API via web
+    url(r'^notices_api/(?P<pk>[0-9]+)/$', views.notice_list_api, name='notice_list_api'),
+
 ]

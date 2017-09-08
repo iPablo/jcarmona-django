@@ -1,11 +1,18 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
-from django.views import generic
 from django.shortcuts import redirect
 from django.utils import timezone
 
+from django.contrib.auth.decorators import login_required
+
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from . serializers import NoticeSerializer
+
 
 # Create your views here.
 
@@ -52,6 +59,7 @@ def event_detail(request, pk):
                   template_name='notices/event_detail.html',
                   context=context)
 
+@login_required
 def notice_new(request):
     """post with current date the new notice"""
     if request.method == "POST":
@@ -67,7 +75,7 @@ def notice_new(request):
         form = PostForm()
     return render(request, 'notices/notice_edit.html', {'form': form})
 
-
+@login_required
 def notice_edit(request, pk):
     """edit the notice"""
     notice = get_object_or_404(Notice, pk=pk)
@@ -82,7 +90,7 @@ def notice_edit(request, pk):
         form = PostForm(instance=notice)
     return render(request, 'notices/notice_edit.html', {'form': form})
 
-
+@login_required
 def notice_delete(request, pk):
     """delete the notice"""
     notice = get_object_or_404(Notice, pk=pk)
@@ -150,4 +158,56 @@ class Event_delete_v2(DeleteView):
 
     def get_queryset(self):
         return Event.objects.all()
+
+
+
+
+class JSONResponse(HttpResponse):
+    """An HttpResponse that renders its content into JSON."""
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'application/json'
+        super(JSONResponse, self).__init__(content, **kwargs)
+
+@csrf_exempt
+def notice_list_api(request):
+    """ List all code notice, or create a new notice."""
+    if request.method == 'GET':
+        notice = Notice.objects.all()
+        serializer = NoticeSerializer(notice, many=True)
+        return JSONResponse(serializer.data)
+
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = NoticeSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        return JSONResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def notice_detail_api(request, pk):
+    """Retrieve, update or delete a notice."""
+    try:
+        notice = Notice.objects.get(pk=pk)
+    except Notice.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = NoticeSerializer(notice)
+        return JSONResponse(serializer.data)
+    # return render(request, 'notices/notices_api.html', context)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = NoticeSerializer(notice, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data)
+        return JSONResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        notice.delete()
+        return HttpResponse(status=204)
 

@@ -75,20 +75,21 @@ class NoticeEditTestCase(TestCase):
     def test_notice_edit(self):
         c = Client()
         #creo una noticia
-        c.post(reverse('notice_new'), {'title': 'primera_noticia', 'description': 'primera_descripcion'})
+        c.post(reverse('notice_new'), {'title': 'primer_titulo', 'description': 'primera_descripcion'})
 
-        import ipdb;
-        ipdb.set_trace()
+        #import ipdb;
+        #ipdb.set_trace()
 
         #identifico el titulo y lo guardo
-        titulo = Notice.objects.get(title='prueba_borrado')
+        titulo = Notice.objects.get(title='primer_titulo')
+        print (titulo)
 
-
-
-        #edito el titlo que obtuve
-        c.post(reverse('notice_edit',{'title': 'primera_noticia', 'description': 'primera_descripcion'}, kwargs={'pk': titulo.pk}))
-
-
+        #edito el titlo que obtuve y lo guardo en otra variable
+        #aqui falla por que esta cambiando también la anterior variable
+        titulo_modificado = titulo.title = 'titulo_modificado'
+        #titulo.save()
+        print (titulo_modificado)
+        # c.post(reverse('notice_edit',{'title': 'primera_noticia', 'description': 'primera_descripcion'}, kwargs={'pk': titulo.pk}))
         #c.post(reverse('notice_edit'), {'title': 'primera_noticia_modificada', 'description': 'primera_descripcion'})
         #titulo_modificado = Notice.objects.filter(obtener pk de la anterior noticia modificada)
 

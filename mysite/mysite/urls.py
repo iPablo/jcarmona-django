@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth import views
 
 #reminder: r'^$', <-- url to root default webpage
 
@@ -22,4 +23,6 @@ urlpatterns = [
     #include the urls of url notices
     url(r'^', include('notices.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/login/$', views.login, name='login'),
+
 ]
