@@ -11,14 +11,14 @@
 <body>
 
 
-         <h3>Notices</h3>
         {% block content %}
+         <h3>Notices</h3>
             {% if latest_notice_list %}
                 <ul>
                     <!-- loop that collect the notices created-->
                 {% for notice in latest_notice_list %}
                     <p><li><a href="/notices/{{ notice.id }}/">{{ notice.title }}</a></li>
-                    <a href="/notices/{{ notice.id }}/">{{ notice.description | truncatechars:60 }}</a></p>
+                    <a href="/notices/{{ notice.id }}/">{{ notice.description | truncatechars:50 }}</a></p>
                 {% endfor %}
                 </ul>
             {% else %}
@@ -31,7 +31,7 @@
                     <!-- loop that collect the events created-->
                 {% for event in latest_event_list %}
                     <p><li><a href="/event/{{ event.id }}/">{{ event.title }}</a></li>
-                    <a href="/event/{{ event.id }}/">{{ event.description | truncatechars:60 }}</a></p>
+                    <a href="/event/{{ event.id }}/">{{ event.description | truncatechars:50 }}</a></p>
                 {% endfor %}
                 </ul>
             {% else %}

@@ -10,9 +10,11 @@
 
 <body>
     <form>
+        <div class="content-buttons">
         <button><a href="{% url 'notices' %}">Notices</a></button>
         <button><a href="{% url 'events' %}">Events</a></button>
         <button><a href="{% url 'index' %}">All</a></button>
+        </div>
     </form>
 
     {% block content %}

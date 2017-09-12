@@ -1,22 +1,32 @@
 {% load staticfiles %}
 <html>
         <head>
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+            <link rel="stylesheet" href="{% static 'css/notices.css' %}">
+            <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" type="text/css">
+
                 <div class="page-header">
-                    <h2><a href="/">Notices and Events</h2></a>
+                    <h2><a href="/">Notices and Events</a></h2>
+
+                    <form>
+                        <div class="content-buttons">
+                                <!-- Buttons to redirect notices, events, etc...-->
+                            <button><a href="{% url 'notices' %}">Notices</a></button>
+                            <button><a href="{% url 'events' %}">Events</a></button>
+                            <button><a href="{% url 'index' %}">All</a></button>
+                            <button><a href="{% url 'notice_new' %}">Create notice</a></button>
+                            <button><a href="{% url 'notice_new_v2' %}">Create notice from view</a></button>
+                            <button><a href="{% url 'event_new_v2' %}">Create event from view</a></button>
+                        </div>
+                    </form>
                 </div>
         </head>
 
 	<body>
 
-      <form>
-            <!-- Buttons to redirect notices, events, etc...-->
-            <button><a href="{% url 'notices' %}">Notices</a></button>
-            <button><a href="{% url 'events' %}">Events</a></button>
-            <button><a href="{% url 'index' %}">All</a></button>
-            <button><a href="{% url 'notice_new' %}">Create notice</a></button>
-            <button><a href="{% url 'notice_new_v2' %}">Create notice from view</a></button>
-            <button><a href="{% url 'event_new_v2' %}">Create event from view</a></button>
-        </form>
+
         <div class="content container">
             <div class="row">
                 <div class="col-md-8">

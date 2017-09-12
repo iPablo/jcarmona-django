@@ -7,8 +7,9 @@
 	<p>{{ event.start_date|linebreaksbr }}</p>
 	<p>{{ event.end_date|linebreaksbr }}</p>
 
+	<div class="content-buttons">
 	<button><a href="{% url 'event_edit_v2' pk=event.pk %}">Edit event from view</a></button>
 	<button><a href="{% url 'event_delete_v2' pk=event.pk %}">Delete event from view</a></button>
-
+	</div>
 </div>
 {% endblock %}
