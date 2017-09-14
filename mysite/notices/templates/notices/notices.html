@@ -23,7 +23,7 @@
                 <ul>
                 {% for notice in latest_notice_list %}
                     <p><li><a href="/notices/{{ notice.id }}/">{{ notice.title }}</a></li>
-                    <a href="/notices/{{ notice.id }}/">{{ notice.description | truncatechars:60 }}</a></p>
+                    <a href="/notices/{{ notice.id }}/">{{ notice.description | truncatechars:120 }}</a></p>
                 {% endfor %}
                 </ul>
             {% else %}

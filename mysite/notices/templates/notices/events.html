@@ -25,7 +25,7 @@
                     <!-- loop that collects all events, truncatechars limit show text to 60 characters-->
                 {% for event in latest_event_list %}
                     <p><li><a href="/event/{{ event.id }}/">{{ event.title }}</a></li>
-                    <a href="/event/{{ event.id }}/">{{ event.description | truncatechars:60 }}</a></p>
+                    <a href="/event/{{ event.id }}/">{{ event.description | truncatechars:120 }}</a></p>
                 {% endfor %}
                 </ul>
             {% else %}
