@@ -13,6 +13,9 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from . serializers import NoticeSerializer
 
+from django.contrib.auth.decorators import permission_required
+from django.utils.decorators import method_decorator
+
 
 # Create your views here.
 
@@ -106,9 +109,11 @@ class Notice_new_v2(CreateView):
 
     #def get_success_url(self):
     #    return reverse('notice_detail', args=(self.object.id,))
-
     def get_success_url(self):
         return reverse(index)
+
+
+
 
 class Notice_edit_v2(UpdateView):
     """notice edit based view"""
