@@ -23,8 +23,14 @@ class PostForm_event(forms.ModelForm):
 		fields = ('title', 'description', 'start_date', 'end_date')
 		widgets = {
 			'description': forms.Textarea(),
-
+			'start_date': forms.SelectDateWidget(),
+			'end_date': forms.SelectDateWidget(),
 		}
+
+	def clean(self):
+		if self.cleaned_data.get("start_date") > self.cleaned_data.get("end_date"):
+			raise forms.ValidationError('The event does not have the dates in order.')
+			return self.cleaned_data
 
 
 
