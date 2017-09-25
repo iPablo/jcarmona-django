@@ -50,6 +50,8 @@ urlpatterns = [
     url(r'^events_v2/(?P<pk>\d+)/delete/$', login_required(views.Event_delete_v2.as_view()), name='event_delete_v2'),
 
     #url para acceder a la API via web
-    url(r'^notices_api/(?P<pk>[0-9]+)/$', views.notice_list_api, name='notice_list_api'),
+    #url(r'^notices_api/(?P<pk>[0-9]+)/$', views.notice_list_api, name='notice_list_api'),
+
+    url(r'^apiEvent/$', views.EventListAPI.as_view(), name="apiEvent"),
 
 ]
